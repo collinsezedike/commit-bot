@@ -4,11 +4,11 @@ import requests
 from datetime import datetime
 
 GITIGNORE_URL = "https://raw.githubusercontent.com/github/gitignore/main/Python.gitignore"
-
+DIR_TO_WATCH = sys.argv[1]
 
 def main():
     print(sys.argv)
-    change_dir(".")
+    change_dir(DIR_TO_WATCH)
     write_gitignore()
     do_git_stuff()
 
