@@ -20,9 +20,11 @@ def main():
         commiter = Commiter(path)
         watcher = Watcher(path, paths_to_ignore=get_paths_from_gitignore())
         watcher.watch(commiter.commit)
-
     except IndexError:
         sys.exit(f"NullError: Please provide the path to directory you want to watch")
+    except Exception as error:
+        sys.exit(error)    
+
 
 if __name__ == "__main__":
     main()
