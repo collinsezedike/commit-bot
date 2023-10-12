@@ -21,6 +21,7 @@ def main():
         path = sys.argv[1]
         commiter = Commiter(path)
         watcher = Watcher(path_to_watch=path, paths_to_ignore=get_paths_from_gitignore())
+        print("eAG")
         watcher.watch(commiter.commit)
 
     except IndexError:
