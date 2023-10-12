@@ -10,6 +10,7 @@ LOG_FORMAT ="%(asctime)s - %(message)s"
 LOG_FILE = "commits.log"
 #datefmt="%Y-%m-%d %H:%M:%S")
 
+
 class Commiter:
 
     def __init__(self, path):
