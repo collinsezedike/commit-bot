@@ -7,6 +7,7 @@ GITIGNORE_URL = "https://raw.githubusercontent.com/github/gitignore/main/Python.
 
 
 def main():
+    print(sys.argv)
     change_dir(".")
     write_gitignore()
     do_git_stuff()
