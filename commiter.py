@@ -44,7 +44,8 @@ class Commiter:
     def __log(self, message):
         self.__logger = logging.getLogger("commit_logger")
         handler = self.__logger.addHandler(LOG_FILE)
-        handler.setFormatter()
+        handler.setFormatter(LOG_FORMAT)
+        self.__logger.addHandler(handler)
         self.__logger.info(message)
 
     def commit(self):
