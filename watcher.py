@@ -37,9 +37,9 @@ class Watcher(FileSystemEventHandler):
         print(path_that_changed)
         print(".git" in path_that_changed)
         for invalid_path in self.paths_to_ignore:
-            if invalid_path in path_that_changed:
-                return False
-        return True
+            if invalid_path not in path_that_changed:
+                return True
+        return False
     
     def __log(self, event):
         what = "directory" if event.is_directory else "file"
