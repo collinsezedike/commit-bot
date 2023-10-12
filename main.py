@@ -11,7 +11,7 @@ def get_paths_from_gitignore():
             for path in paths:
                 path.replace("*", "")
                 if path.startswith("#") or path.strip() == "":
-                    paths.pop(path.index)
+                    paths.pop(paths.index(path))
             print(paths)
             return paths
     return []
