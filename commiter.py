@@ -15,7 +15,13 @@ class Commiter:
 
     def __init__(self, path):
         self.__path = path
-        self.__logger = Logger("commit_logger", level=logging.INFO)
+        
+        self.__logger = logging.getLogger("commit_logger")
+        self.__logger.setLevel(level=logging.INFO)
+        handler =   logging.FileHandler(LOG_FILE)
+        handler.setFormatter(LOG_FORMAT)
+        self.__logger.addHandler(handler)
+
         self.__change_to_watch_dir()
         self.__write_gitignore()
 
