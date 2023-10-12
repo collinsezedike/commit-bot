@@ -42,10 +42,6 @@ class Commiter:
                 file.write(self.__get_gitignore()) 
 
     def __log(self, message):
-        self.__logger = logging.getLogger("commit_logger")
-        handler =   logging.FileHandler(LOG_FILE)
-        handler.setFormatter(LOG_FORMAT)
-        self.__logger.addHandler(handler)
         self.__logger.info(message)
 
     def commit(self):
