@@ -36,8 +36,8 @@ class Watcher(FileSystemEventHandler):
     def __is_valid_watch_path(self, path_that_changed):
         for invalid_path in self.paths_to_ignore:
             if invalid_path in path_that_changed:
-                return False
-        return True
+                return True
+        return False
     
     def __log(self, event):
         what = "directory" if event.is_directory else "file"
