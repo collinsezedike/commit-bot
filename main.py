@@ -12,6 +12,7 @@ def get_paths_from_gitignore():
                 path.replace("*", "")
                 if path.startswith("#") or path.strip() == "":
                     paths.pop(path.index)
+            print(paths)
             return paths
     return []
 
@@ -19,7 +20,7 @@ def main():
     try:
         path = sys.argv[1]
         commiter = Commiter(path)
-        watcher = Watcher(path)
+        watcher = Watcher(path_to_watch=path, paths_to_ignore=get_paths_from_gitignore())
         watcher.watch(commiter.commit)
 
     except IndexError:

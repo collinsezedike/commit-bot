@@ -12,10 +12,11 @@ IGNORE_PATHS = [".log", ".git"]
 
 class Watcher(FileSystemEventHandler):
 
-    def __init__(self, path_to_watch):
+    def __init__(self, path_to_watch, paths_to_ignore=[]):
         #TODO: Implement ignore files and directory
         super().__init__()
-        self.__path = path_to_watch
+        self.path_to_watch = path_to_watch
+        self.paths_to_ignore = paths_to_ignore
         self.__observer = Observer()
         logging.basicConfig(filename=LOG_FILE,
                     level=logging.INFO,
@@ -27,10 +28,9 @@ class Watcher(FileSystemEventHandler):
             and self.__is_valid_watch_path(event.src_path):
             self.__log(event)
             self.__special_func()
-        # return super().on_any_event(event)
     
     def __is_valid_watch_path(self, path_that_changed):
-        for invalid_path in IGNORE_PATHS:
+        for invalid_path in self.paths_to_ignore:
             if invalid_path in path_that_changed:
                 return False
         return True
@@ -41,8 +41,8 @@ class Watcher(FileSystemEventHandler):
         logging.info(log_message)
     
     def watch(self, func):
-        self.__special_func = func  # special function defines what should happen when the watched detects a change
-        self.__observer.schedule(self, self.__path, recursive=True)
+        self.__special_func = func  # call when the watcher detects a change
+        self.__observer.schedule(self, self.path_to_watch, recursive=True)
         self.__observer.start()
         try:
             while True:
