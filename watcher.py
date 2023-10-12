@@ -34,10 +34,12 @@ class Watcher(FileSystemEventHandler):
             self.__special_func()
     
     def __is_valid_watch_path(self, path_that_changed):
+        print(path_that_changed)
+        print(".git" in path_that_changed)
         for invalid_path in self.paths_to_ignore:
             if invalid_path in path_that_changed:
-                return True
-        return False
+                return False
+        return True
     
     def __log(self, event):
         what = "directory" if event.is_directory else "file"
