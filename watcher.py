@@ -13,7 +13,6 @@ IGNORE_PATHS = [".log", ".git"]
 class Watcher(FileSystemEventHandler):
 
     def __init__(self, path_to_watch, paths_to_ignore=[]):
-        #TODO: Implement ignore files and directory
         super().__init__()
         self.path_to_watch = path_to_watch
         self.paths_to_ignore = paths_to_ignore
