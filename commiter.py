@@ -6,6 +6,7 @@ from datetime import datetime
 from logging import Logger
 
 GITIGNORE_URL = "https://raw.githubusercontent.com/github/gitignore/main/Python.gitignore"
+LOG_FORMAT ="%(asctime)s - %(message)s", 
 LOG_FILE = "commits.log"
 
 class Commiter:
@@ -17,7 +18,7 @@ class Commiter:
         self.__write_gitignore()
         # logging.basicConfig(filename=LOG_FILE,
         #                     level=logging.INFO,
-        #                     format="%(asctime)s - %(message)s", 
+        #                     
         #                     datefmt="%Y-%m-%d %H:%M:%S")
 
     def __change_to_watch_dir(self):
@@ -43,6 +44,9 @@ class Commiter:
                 file.write(self.__get_gitignore()) 
 
     def __log(self, message):
+        self.__logger = logging.getLogger("commit_logger")
+        handler = self.__logger.addHandler(LOG_FILE)
+        handler.setFormatter()
         self.__logger.info(message)
 
     def commit(self):
