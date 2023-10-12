@@ -4,11 +4,9 @@ import requests
 from datetime import datetime
 
 GITIGNORE_URL = "https://raw.githubusercontent.com/github/gitignore/main/Python.gitignore"
-DIR_TO_WATCH = sys.argv[1]
 
 def main():
-    print(sys.argv)
-    change_dir(DIR_TO_WATCH)
+    change_to_watch_dir()
     write_gitignore()
     do_git_stuff()
 
@@ -27,9 +25,12 @@ def write_gitignore():
             file.write(get_gitignore()) 
 
 
-def change_dir(path):
+def change_to_watch_dir():
     try:
+        path = sys.argv[1]
         os.chdir(path)
+    except IndexError:
+        sys.exit(f"NullError: Please provide the path to directory you want to watch")
     except FileNotFoundError:
         sys.exit(f"PathError: The system cannot find the specified psth: '{path}'")
     except Exception as error:
