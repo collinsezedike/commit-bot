@@ -16,6 +16,8 @@ class Watcher(FileSystemEventHandler):
         super().__init__()
         self.path_to_watch = path_to_watch
         self.paths_to_ignore = paths_to_ignore
+        
+        self.__observer = Observer()
 
         self.__logger = logging.getLogger("watch_logger")
         self.__logger.setLevel(logging.INFO)
@@ -23,7 +25,6 @@ class Watcher(FileSystemEventHandler):
         handler.setFormatter(LOG_FORMAT)
         self.__logger.addHandler(handler)
         
-        self.__observer = Observer()
     
     def on_any_event(self, event):
         if event.event_type not in ["opened", "closed"] \
