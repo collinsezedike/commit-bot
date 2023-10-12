@@ -22,6 +22,7 @@ class Watcher(FileSystemEventHandler):
         handler = logging.FileHandler(LOG_FILE)
         handler.setFormatter(LOG_FORMAT)
         self.__logger.addHandler(handler)
+        
         self.__observer = Observer()
     
     def on_any_event(self, event):
