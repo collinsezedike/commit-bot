@@ -3,6 +3,7 @@ import sys
 from commiter import Commiter
 from watcher import Watcher
 
+
 def main():
     try:
         path = sys.argv[1]
