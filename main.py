@@ -5,7 +5,7 @@ from commiter import Commiter
 from watcher import Watcher
 
 def get_paths_from_gitignore():
-    if not os.path.isfile(".gitignore"):
+    if os.path.isfile(".gitignore"):
         with open(".gitignore") as file:
             paths = file.readlines()
             for path in paths:
