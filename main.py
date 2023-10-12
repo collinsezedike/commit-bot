@@ -38,6 +38,8 @@ def change_dir(path):
 def get_gitignore():
     try:
         return requests.get(GITIGNORE_URL).text
+    except requests.ConnectionError:
+        sys.exit("ConnectionError: Please check your internet connection")
     except Exception as error:
         sys.exit(error)
 
