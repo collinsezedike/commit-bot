@@ -16,7 +16,7 @@ class Commiter:
 
         self.__logger = logging.getLogger("commit_logger")
         self.__logger.setLevel(level=logging.INFO)
-        format = logging.Formatter("%(asctime)s - %(message)s", datefmt="%Y-%m-%d %H:%M:%S")
+        format = logging.Formatter("%(message)s", datefmt="%Y-%m-%d %H:%M:%S")
         handler =   logging.FileHandler(LOG_FILE)
         handler.setFormatter(format)
         self.__logger.addHandler(handler)
