@@ -9,6 +9,7 @@ from watchdog.events import FileSystemEventHandler
 LOG_FILE = "changes.log"
 IGNORE_PATHS = [".log", ".git"]
 
+
 class Watcher(FileSystemEventHandler):
 
     def __init__(self, path_to_watch):
