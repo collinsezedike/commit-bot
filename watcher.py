@@ -17,6 +17,7 @@ class Watcher(FileSystemEventHandler):
         super().__init__()
         self.path_to_watch = path_to_watch
         self.paths_to_ignore = paths_to_ignore
+        self.__logger = logging.Logger()
         self.__observer = Observer()
         logging.basicConfig(filename=LOG_FILE,
                     level=logging.INFO,
@@ -39,6 +40,11 @@ class Watcher(FileSystemEventHandler):
         what = "directory" if event.is_directory else "file"
         log_message = f"{event.event_type} {what} {event.src_path}"
         logging.info(log_message)
+        self.__logger = logging.getLogger("commit_logger")
+        handler = self.__logger.addHandler(LOG_FILE)
+        handler.setFormatter(LOG_FORMAT)
+        self.__logger.addHandler(handler)
+        self.__logger.info(message)
     
     def watch(self, func):
         self.__special_func = func  # call when the watcher detects a change
