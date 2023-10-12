@@ -33,7 +33,6 @@ class Watcher(FileSystemEventHandler):
             self.__special_func()
     
     def __is_valid_watch_path(self, path_that_changed):
-        print(".git" in self.paths_to_ignore)
         for invalid_path in self.paths_to_ignore:
             if invalid_path not in path_that_changed:
                 return True
