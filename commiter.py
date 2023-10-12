@@ -3,7 +3,6 @@ import sys
 import logging
 import requests
 from datetime import datetime
-from logging import Logger
 
 GITIGNORE_URL = "https://raw.githubusercontent.com/github/gitignore/main/Python.gitignore"
 LOG_FILE = "commits.log"
