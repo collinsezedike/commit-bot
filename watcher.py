@@ -6,7 +6,7 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
 LOG_FILE = "changes.log"
-IGNORE_PATHS = [".log", ".git/"]
+IGNORE_PATHS = [".log", ".git"]
 
 class Watcher(FileSystemEventHandler):
 
