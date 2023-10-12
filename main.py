@@ -1,7 +1,7 @@
-import sys
 import os
-from datetime import datetime
+import sys
 import requests
+from datetime import datetime
 
 GITIGNORE_URL = "https://raw.githubusercontent.com/github/gitignore/main/Python.gitignore"
 
