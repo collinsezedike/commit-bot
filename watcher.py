@@ -30,13 +30,10 @@ class Watcher(FileSystemEventHandler):
         return super().on_any_event(event)
     
     def __is_valid_watch_path(self, path):
-        if pathlib.Path(path).is_file:
-            return pathlib.Path(path).suffix not in IGNORE_PATHS
-        else:
-            for path in IGNORE_PATHS:
-                if path in pathlib.Path(path):
-                    return False
-            return True
+        for path in IGNORE_PATHS:
+            if path in pathlib.Path(path):
+                return False
+        return True
     
     def __log(self, event):
         what = "directory" if event.is_directory else "file"
