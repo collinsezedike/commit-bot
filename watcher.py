@@ -7,7 +7,6 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
 LOG_FILE = "watches.log"
-LOG_FORMAT ="%(asctime)s - %(message)s"
 
 
 class Watcher(FileSystemEventHandler):
@@ -16,13 +15,14 @@ class Watcher(FileSystemEventHandler):
         super().__init__()
         self.path_to_watch = path_to_watch
         self.paths_to_ignore = paths_to_ignore
-        
+
         self.__observer = Observer()
 
         self.__logger = logging.getLogger("watch_logger")
         self.__logger.setLevel(logging.INFO)
-        handler = logging.FileHandler(LOG_FILE)
-        handler.setFormatter(LOG_FORMAT)
+        format = logging.Formatter("%(asctime)s - %(message)s", datefmt="%Y-%m-%d %H:%M:%S")
+        handler =   logging.FileHandler(LOG_FILE)
+        handler.setFormatter(format)
         self.__logger.addHandler(handler)
         
     

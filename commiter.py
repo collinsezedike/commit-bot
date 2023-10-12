@@ -6,20 +6,19 @@ from datetime import datetime
 from logging import Logger
 
 GITIGNORE_URL = "https://raw.githubusercontent.com/github/gitignore/main/Python.gitignore"
-LOG_FORMAT ="%(asctime)s - %(message)s"
 LOG_FILE = "commits.log"
-#datefmt="%Y-%m-%d %H:%M:%S")
 
 
 class Commiter:
 
     def __init__(self, path):
         self.__path = path
-        
+
         self.__logger = logging.getLogger("commit_logger")
         self.__logger.setLevel(level=logging.INFO)
+        format = logging.Formatter("%(asctime)s - %(message)s", datefmt="%Y-%m-%d %H:%M:%S")
         handler =   logging.FileHandler(LOG_FILE)
-        handler.setFormatter(LOG_FORMAT)
+        handler.setFormatter(format)
         self.__logger.addHandler(handler)
 
         self.__change_to_watch_dir()
