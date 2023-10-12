@@ -6,10 +6,12 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
 LOG_FILE = "changes.log"
+IGNORE_PATHS = [".log", ".git/"]
 
 class Watcher(FileSystemEventHandler):
 
     def __init__(self, path_to_watch):
+        #TODO: Implement ignore files and directory
         super().__init__()
         self.__path = path_to_watch
         self.__observer = Observer()
@@ -20,10 +22,19 @@ class Watcher(FileSystemEventHandler):
     
     def on_any_event(self, event):
         if event.event_type not in ["opened", "closed"] \
-            and pathlib.Path(event.src_path).suffix != ".log":
+            and self.__is_valid_watch_path(event.src_path):
             self.__log(event)
             self.__special_func()
         return super().on_any_event(event)
+    
+    def __is_valid_watch_path(self, path):
+        if pathlib.Path(path).is_file:
+            return pathlib.Path(path).suffix not in IGNORE_PATHS
+        else:
+            for path in IGNORE_PATHS:
+                if path in pathlib.Path(path):
+                    return False
+            return True
     
     def __log(self, event):
         what = "directory" if event.is_directory else "file"
