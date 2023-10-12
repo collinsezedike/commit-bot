@@ -6,7 +6,7 @@ import pathlib
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
-LOG_FILE = "changes.log"
+LOG_FILE = "watches.log"
 LOG_FORMAT ="%(asctime)s - %(message)s"
 
 
@@ -16,12 +16,8 @@ class Watcher(FileSystemEventHandler):
         super().__init__()
         self.path_to_watch = path_to_watch
         self.paths_to_ignore = paths_to_ignore
-        self.__logger = logging.Logger("changes_logger", level=logging.INFO)
+        self.__logger = logging.Logger("watch_logger", level=logging.INFO)
         self.__observer = Observer()
-        logging.basicConfig(filename=LOG_FILE,
-                    level=logging.INFO,
-                    format="%(asctime)s - %(message)s", 
-                    datefmt="%Y-%m-%d %H:%M:%S")
     
     def on_any_event(self, event):
         if event.event_type not in ["opened", "closed"] \
@@ -38,7 +34,7 @@ class Watcher(FileSystemEventHandler):
     def __log(self, event):
         what = "directory" if event.is_directory else "file"
         log_message = f"{event.event_type} {what} {event.src_path}"
-        self.__logger = logging.getLogger("changes_logger")
+        self.__logger = logging.getLogger("watch_logger")
         handler = logging.FileHandler(LOG_FILE)
         handler.setFormatter(LOG_FORMAT)
         self.__logger.addHandler(handler)
