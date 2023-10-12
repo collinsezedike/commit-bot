@@ -38,7 +38,6 @@ class Watcher(FileSystemEventHandler):
     def __log(self, event):
         what = "directory" if event.is_directory else "file"
         log_message = f"{event.event_type} {what} {event.src_path}"
-        self.__logger = logging.getLogger("changes_logger")
         handler = self.__logger.addHandler(LOG_FILE)
         handler.setFormatter(LOG_FORMAT)
         self.__logger.addHandler(handler)
