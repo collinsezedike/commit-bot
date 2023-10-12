@@ -1,3 +1,4 @@
+import sys
 import time
 import logging
 import pathlib
@@ -23,15 +24,13 @@ class Watcher(FileSystemEventHandler):
     def on_any_event(self, event):
         if event.event_type not in ["opened", "closed"] \
             and self.__is_valid_watch_path(event.src_path):
-            print(event.src_path)
-            print(self.__is_valid_watch_path(event.src_path))
             self.__log(event)
             self.__special_func()
-        return super().on_any_event(event)
+        # return super().on_any_event(event)
     
-    def __is_valid_watch_path(self, path):
-        for path in IGNORE_PATHS:
-            if path in pathlib.Path(path):
+    def __is_valid_watch_path(self, path_that_changed):
+        for invalid_path in IGNORE_PATHS:
+            if invalid_path in path_that_changed:
                 return False
         return True
     
@@ -49,4 +48,8 @@ class Watcher(FileSystemEventHandler):
                 time.sleep(1)
         except KeyboardInterrupt:
             self.__observer.stop()
-        self.__observer.join()
+        except Exception as error:
+            print(error)
+        finally:
+            self.__observer.join()
+            sys.exit()
