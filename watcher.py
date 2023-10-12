@@ -7,7 +7,7 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
 LOG_FILE = "changes.log"
-IGNORE_PATHS = [".log", ".git"]
+LOG_FORMAT ="%(asctime)s - %(message)s"
 
 
 class Watcher(FileSystemEventHandler):
@@ -16,7 +16,7 @@ class Watcher(FileSystemEventHandler):
         super().__init__()
         self.path_to_watch = path_to_watch
         self.paths_to_ignore = paths_to_ignore
-        self.__logger = logging.Logger()
+        self.__logger = logging.Logger("changes_logger", level=logging.INFO)
         self.__observer = Observer()
         logging.basicConfig(filename=LOG_FILE,
                     level=logging.INFO,
@@ -39,7 +39,7 @@ class Watcher(FileSystemEventHandler):
         what = "directory" if event.is_directory else "file"
         log_message = f"{event.event_type} {what} {event.src_path}"
         logging.info(log_message)
-        self.__logger = logging.getLogger("commit_logger")
+        self.__logger = logging.getLogger("changes_logger")
         handler = self.__logger.addHandler(LOG_FILE)
         handler.setFormatter(LOG_FORMAT)
         self.__logger.addHandler(handler)
