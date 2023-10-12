@@ -3,6 +3,7 @@ import sys
 import logging
 import requests
 from datetime import datetime
+from logging import Logger
 
 GITIGNORE_URL = "https://raw.githubusercontent.com/github/gitignore/main/Python.gitignore"
 LOG_FILE = "commits.log"
@@ -11,12 +12,13 @@ class Commiter:
 
     def __init__(self, path):
         self.__path = path
+        self.__logger = Logger("commit_logger", level=logging.INFO)
         self.__change_to_watch_dir()
         self.__write_gitignore()
-        logging.basicConfig(filename=LOG_FILE,
-                            level=logging.INFO,
-                            format="%(asctime)s - %(message)s", 
-                            datefmt="%Y-%m-%d %H:%M:%S")
+        # logging.basicConfig(filename=LOG_FILE,
+        #                     level=logging.INFO,
+        #                     format="%(asctime)s - %(message)s", 
+        #                     datefmt="%Y-%m-%d %H:%M:%S")
 
     def __change_to_watch_dir(self):
         try:
@@ -41,7 +43,7 @@ class Commiter:
                 file.write(self.__get_gitignore()) 
 
     def __log(self, message):
-        logging.info(message)
+        self.__logger.info(message)
 
     def commit(self):
         commit_message = f"auto commit on {datetime.now().date()} at {datetime.now().time()}"
@@ -50,4 +52,3 @@ class Commiter:
         os.system("git add .")
         os.system(f'git commit -m "{commit_message}"')
         self.__log(commit_message)
-        
