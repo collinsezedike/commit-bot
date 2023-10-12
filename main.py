@@ -6,13 +6,13 @@ from watcher import Watcher
 
 def get_paths_from_gitignore():
     if os.path.isfile(".gitignore"):
-        invalid_paths = []
         with open(".gitignore") as file:
             paths = file.readlines()
             for path in paths:
                 path.strip().replace("*", "")
                 if path.startswith("#") or path.strip() == "":
                     paths.remove(path)
+            print(paths)
             return paths
     return []
 
