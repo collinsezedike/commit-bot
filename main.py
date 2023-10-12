@@ -13,6 +13,7 @@ def get_paths_from_gitignore():
             return ignore_paths
     return []
 
+
 def main():
     try:
         path = sys.argv[1]
