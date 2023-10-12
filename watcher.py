@@ -27,8 +27,8 @@ class Watcher(FileSystemEventHandler):
         
     
     def on_any_event(self, event):
-        if event.event_type not in ["opened", "closed"] \
-            and self.__is_valid_watch_path(event.src_path):
+        if (event.event_type not in ["opened", "closed"]) \
+            and (self.__is_valid_watch_path(event.src_path)):
             print(".git" in event.src_path)
             self.__log(event)
             self.__special_func()
