@@ -13,6 +13,7 @@ class Commiter:
 
     def __init__(self, path):
         self.__watch_dir = pathlib.Path(path).absolute()
+        self.__bot_dir = os.getcwd()
 
         self.__logger = logging.getLogger("commit_logger")
         self.__logger.setLevel(level=logging.INFO)
@@ -41,9 +42,11 @@ class Commiter:
         self.__logger.info(message)
 
     def commit(self):
+        os.chdir(self.__watch_dir)
         commit_message = f"auto commit on {datetime.now().date()} at {datetime.now().time().strftime('%H:%M:%S')}"
         if not os.path.isdir(f".git"):
             os.system("git init")
-        os.system(f"git add {self.__watch_dir}")
+        os.system(f"git add .")
         os.system(f'git commit -m "{commit_message}"')
+        os.chdir(self.__bot_dir)
         self.__log(commit_message)
