@@ -39,6 +39,7 @@ class Commiter:
             sys.exit(error)
 
     def __write_gitignore(self):
+        self.__change_to_watch_dir()
         if not os.path.isfile(".gitignore"):
             os.system("touch .gitignore")
             with open(".gitignore", "w") as file:
