@@ -1,7 +1,6 @@
 import os
 import sys
 import logging
-import pathlib
 import requests
 from datetime import datetime
 
@@ -13,6 +12,7 @@ class Commiter:
 
     def __init__(self, path):
         self.__path = path
+        self.__bot_dir = os.getcwd()
 
         self.__logger = logging.getLogger("commit_logger")
         self.__logger.setLevel(level=logging.INFO)
@@ -32,8 +32,7 @@ class Commiter:
             sys.exit(error)
         
     def __change_to_bot_dir(self):
-        pathlib.Path(os.getcwd()).absolute()
-        os.chdir()
+        os.chdir(self.__bot_dir)
         
     def __get_gitignore(self):
         try:
