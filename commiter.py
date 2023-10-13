@@ -43,7 +43,8 @@ class Commiter:
         if not os.path.isfile(".gitignore"):
             os.system("touch .gitignore")
             with open(".gitignore", "w") as file:
-                file.write(self.__get_gitignore()) 
+                file.write(self.__get_gitignore())
+        self.__change_to_bot_dir()
 
     def __log(self, message):
         self.__logger.info(message)
@@ -56,3 +57,4 @@ class Commiter:
         os.system("git add .")
         os.system(f'git commit -m "{commit_message}"')
         self.__log(commit_message)
+        self.__change_to_bot_dir()
