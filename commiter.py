@@ -49,6 +49,7 @@ class Commiter:
         self.__logger.info(message)
 
     def commit(self):
+        self.__change_to_watch_dir()
         commit_message = f"auto commit on {datetime.now().date()} at {datetime.now().time()}"
         if not os.path.isdir(".git"):
             os.system("git init")
