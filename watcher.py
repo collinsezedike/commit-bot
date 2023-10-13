@@ -31,6 +31,7 @@ class Watcher(FileSystemEventHandler):
             and (event.event_type not in ["opened", "closed"]):
             self.__log(event)
             self.__special_func()
+            return
     
     def __is_valid_watch_path(self, path_that_changed):
         for invalid_path in self.paths_to_ignore:
@@ -49,7 +50,7 @@ class Watcher(FileSystemEventHandler):
         self.__observer.start()
         try:
             while True:
-                time.sleep(5)
+                time.sleep(1)
         except KeyboardInterrupt:
             self.__observer.stop()
         except Exception as error:
