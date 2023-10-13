@@ -30,6 +30,9 @@ class Commiter:
         except Exception as error:
             sys.exit(error)
         
+    def __change_to_bot_dir(self):
+        os.chdir()
+        
     def __get_gitignore(self):
         try:
             return requests.get(GITIGNORE_URL).text
