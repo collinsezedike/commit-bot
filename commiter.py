@@ -32,6 +32,7 @@ class Commiter:
             sys.exit(error)
         
     def __change_to_bot_dir(self):
+        pathlib.Path(os.getcwd()).absolute()
         os.chdir()
         
     def __get_gitignore(self):
