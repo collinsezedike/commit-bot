@@ -51,8 +51,8 @@ class Watcher(FileSystemEventHandler):
         self.__observer.start()
         try:
             while True:
+                print("Before sleep")
                 time.sleep(1)
-                continue
         except KeyboardInterrupt:
             self.__observer.stop()
         except Exception as error:
