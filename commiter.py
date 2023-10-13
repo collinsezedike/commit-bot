@@ -6,7 +6,7 @@ import requests
 from datetime import datetime
 
 GITIGNORE_URL = "https://raw.githubusercontent.com/github/gitignore/main/Python.gitignore"
-LOG_FILE = f"{os.getcwd()}/commits.log"
+LOG_FILE = "commits.log"
 
 
 class Commiter:
