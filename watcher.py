@@ -29,7 +29,6 @@ class Watcher(FileSystemEventHandler):
     def on_any_event(self, event):
         if (self.__is_valid_watch_path(event.src_path)) \
             and (event.event_type not in ["opened", "closed"]):
-            print("Before Logging")
             self.__log(event)
             self.__special_func()
     
