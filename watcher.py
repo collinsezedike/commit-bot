@@ -20,11 +20,10 @@ class Watcher(FileSystemEventHandler):
 
         self.__logger = logging.getLogger("watch_logger")
         self.__logger.setLevel(logging.INFO)
-        if not self.__logger.handlers:
-            format = logging.Formatter("%(asctime)s - %(message)s", datefmt="%Y-%m-%d %H:%M:%S")
-            handler =   logging.FileHandler(LOG_FILE)
-            handler.setFormatter(format)
-            self.__logger.addHandler(handler)
+        format = logging.Formatter("%(asctime)s - %(message)s", datefmt="%Y-%m-%d %H:%M:%S")
+        handler =   logging.FileHandler(LOG_FILE)
+        handler.setFormatter(format)
+        self.__logger.addHandler(handler)
         
     
     def on_any_event(self, event):
@@ -50,7 +49,7 @@ class Watcher(FileSystemEventHandler):
         self.__observer.start()
         try:
             while True:
-                time.sleep(1)
+                time.sleep(5)
         except KeyboardInterrupt:
             self.__observer.stop()
         except Exception as error:
