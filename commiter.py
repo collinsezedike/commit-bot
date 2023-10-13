@@ -20,7 +20,6 @@ class Commiter:
         handler.setFormatter(format)
         self.__logger.addHandler(handler)
 
-        self.__change_to_watch_dir()
         self.__write_gitignore()
 
     def __change_to_watch_dir(self):
