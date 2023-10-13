@@ -49,7 +49,7 @@ class Watcher(FileSystemEventHandler):
         self.__observer.start()
         try:
             while True:
-                time.sleep(1)
+                time.sleep(3)
         except KeyboardInterrupt:
             self.__observer.stop()
         except Exception as error:

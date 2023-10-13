@@ -1,18 +1,18 @@
 import os
 import sys
 import logging
+import pathlib
 import requests
 from datetime import datetime
 
 GITIGNORE_URL = "https://raw.githubusercontent.com/github/gitignore/main/Python.gitignore"
-LOG_FILE = "commits.log"
+LOG_FILE = f"{os.getcwd()}/commits.log"
 
 
 class Commiter:
 
     def __init__(self, path):
-        self.__path = path
-        self.__bot_dir = os.getcwd()
+        self.__watch_dir = pathlib.Path(path).absolute()
 
         self.__logger = logging.getLogger("commit_logger")
         self.__logger.setLevel(level=logging.INFO)
@@ -22,17 +22,6 @@ class Commiter:
         self.__logger.addHandler(handler)
 
         self.__write_gitignore()
-
-    def __change_to_watch_dir(self):
-        try:
-            os.chdir(self.__path)
-        except FileNotFoundError:
-            sys.exit(f"PathError: The system cannot find the specified path: '{self.__path}'")
-        except Exception as error:
-            sys.exit(error)
-        
-    def __change_to_bot_dir(self):
-        os.chdir(self.__bot_dir)
         
     def __get_gitignore(self):
         try:
@@ -43,22 +32,18 @@ class Commiter:
             sys.exit(error)
 
     def __write_gitignore(self):
-        self.__change_to_watch_dir()
-        if not os.path.isfile(".gitignore"):
-            os.system("touch .gitignore")
-            with open(".gitignore", "w") as file:
+        if not os.path.isfile(f"{self.__watch_dir}/.gitignore"):
+            os.system(f"touch {self.__watch_dir}/.gitignore")
+            with open(f"{self.__watch_dir}/.gitignore", "w") as file:
                 file.write(self.__get_gitignore())
-        self.__change_to_bot_dir()
 
     def __log(self, message):
         self.__logger.info(message)
 
     def commit(self):
-        self.__change_to_watch_dir()
-        commit_message = f"auto commit on {datetime.now().date()} at {datetime.now().time()}"
-        if not os.path.isdir(".git"):
+        commit_message = f"auto commit on {datetime.now().date()} at {datetime.now().time().strftime('%H:%M:%S')}"
+        if not os.path.isdir(f".git"):
             os.system("git init")
-        os.system("git add .")
+        os.system(f"git add {self.__watch_dir}")
         os.system(f'git commit -m "{commit_message}"')
         self.__log(commit_message)
-        self.__change_to_bot_dir()
