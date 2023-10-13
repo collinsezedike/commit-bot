@@ -31,7 +31,6 @@ class Watcher(FileSystemEventHandler):
             and (event.event_type not in ["opened", "closed"]):
             print("Before Logging")
             self.__log(event)
-            print("After Logging")
             self.__special_func()
     
     def __is_valid_watch_path(self, path_that_changed):
