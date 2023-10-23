@@ -29,7 +29,7 @@ This is an auto commit robot. It monitors a specified directory and commits (via
 
 ## Notes
 
-- Make sure to run all commands inside root directory of the codebase. This directory should be `commit-bot/` or `commit-bot-main/`, depending on whether you cloned or downloaded the code.
+- Make sure to run all commands inside the root directory of the codebase. This directory should be `commit-bot/` or `commit-bot-main/`, depending on whether you cloned or downloaded the code.
 
 - If the target directory path does not already exist, the robot will not create it. It will terminate the execution with an error.  
 
@@ -37,4 +37,4 @@ This is an auto commit robot. It monitors a specified directory and commits (via
 
 - The robot does not push the committed changes to Github. Yet.  
 
-- The robot creates log files that will not be committed.
+- The robot creates log files which will not be committed.
