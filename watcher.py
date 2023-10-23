@@ -1,7 +1,6 @@
 import sys
 import time
 import logging
-import pathlib
 
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
@@ -24,11 +23,10 @@ class Watcher(FileSystemEventHandler):
         handler =   logging.FileHandler(LOG_FILE)
         handler.setFormatter(format)
         self.__logger.addHandler(handler)
-        
     
     def on_any_event(self, event):
         if (self.__is_valid_watch_path(event.src_path)) \
-            and (event.event_type not in ["opened", "closed"]):
+                and (event.event_type not in ["opened", "closed"]):
             self.__log(event)
             self.__special_func()
     
